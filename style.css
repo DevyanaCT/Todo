@@ -1,0 +1,231 @@
+:root {
+    /* Light Mode Colors */
+    --background-light: #f4f6f9;
+    --background-card-light: #ffffff;
+    --text-primary-light: #2c3e50;
+    --text-secondary-light: #7f8c8d;
+    --primary-color-light: #3498db;
+    --success-color-light: #2ecc71;
+    --danger-color-light: #e74c3c;
+    --warning-color-light: #f39c12;
+
+    /* Dark Mode Colors */
+    --background-dark: #1a2232;
+    --background-card-dark: #2c3e50;
+    --text-primary-dark: #ecf0f1;
+    --text-secondary-dark: #bdc3c7;
+    --primary-color-dark: #4a90e2;
+    --success-color-dark: #48dbfb;
+    --danger-color-dark: #ff6b6b;
+    --warning-color-dark: #feca57;
+
+    /* Transitions */
+    --transition-speed: 0.3s;
+
+    /* Shadows */
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Global Resets and Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: 
+        background-color var(--transition-speed) ease,
+        color var(--transition-speed) ease;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-light);
+    color: var(--text-primary-light);
+    min-height: 100vh;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-primary-dark);
+}
+
+/* Container and Layout */
+.container-fluid {
+    padding: 0;
+}
+
+/* Sidebar Enhancements */
+#sidebar {
+    background-color: var(--background-card-light);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: transform var(--transition-speed) ease;
+    z-index: 1000;
+}
+
+body.dark-mode #sidebar {
+    background-color: var(--background-card-dark);
+    border-right-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Task Card Styling */
+.task-card {
+    margin-bottom: 1rem;
+    perspective: 1000px;
+}
+
+.task-card .card {
+    background-color: var(--background-card-light);
+    border: none;
+    box-shadow: var(--box-shadow);
+    transition: 
+        transform var(--transition-speed) ease,
+        box-shadow var(--transition-speed) ease;
+    overflow: hidden;
+}
+
+.task-card:hover .card {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: var(--box-shadow-hover);
+}
+
+body.dark-mode .task-card .card {
+    background-color: var(--background-card-dark);
+    color: var(--text-primary-dark);
+}
+
+/* Priority Indicators */
+.task-priority-high {
+    border-left: 4px solid var(--danger-color-light);
+}
+
+.task-priority-medium {
+    border-left: 4px solid var(--warning-color-light);
+}
+
+.task-priority-low {
+    border-left: 4px solid var(--success-color-light);
+}
+
+body.dark-mode .task-priority-high {
+    border-left-color: var(--danger-color-dark);
+}
+
+body.dark-mode .task-priority-medium {
+    border-left-color: var(--warning-color-dark);
+}
+
+body.dark-mode .task-priority-low {
+    border-left-color: var(--success-color-dark);
+}
+
+/* Overdue and Completed Task Styles */
+.task-overdue {
+    opacity: 0.7;
+    background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+.task-completed {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+.form-control, .form-select {
+    border-radius: 8px;
+    transition: all var(--transition-speed) ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-100%);
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.task-card {
+    animation: slideIn 0.5s ease forwards;
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+    background: transparent;
+    border: 2px solid var(--text-primary-light);
+    color: var(--text-primary-light);
+    transition: all var(--transition-speed) ease;
+}
+
+#theme-toggle:hover {
+    background-color: var(--text-primary-light);
+    color: var(--background-light);
+}
+
+body.dark-mode #theme-toggle {
+    border-color: var(--text-primary-dark);
+    color: var(--text-primary-dark);
+}
+
+body.dark-mode #theme-toggle:hover {
+    background-color: var(--text-primary-dark);
+    color: var(--background-dark);
+}
+
+/* Scrollbar Styling (Webkit Browsers) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color-light);
+    border-radius: 5px;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: var(--background-dark);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: var(--primary-color-dark);
+}
